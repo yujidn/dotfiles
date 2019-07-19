@@ -114,9 +114,14 @@ let g:EasyMotion_keys = 'asdfhjkl'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:go_metalinter_autosave = 1
 
+""" vlang """
+Plug 'ollykel/v-vim'
+au BufNewFile,BufRead *.v,*.vh	setf vlang
+
 """ 括弧に色つけるやつ """
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
 
 
 call plug#end()
