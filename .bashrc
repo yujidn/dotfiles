@@ -150,6 +150,7 @@ export PATH="$PATH:/usr/local/android-studio/bin"
 
 # go install
 export GOROOT=$HOME/go
+export GOPATH=$HOME/gopath
 export PATH=$PATH:$GOROOT/bin
 
 source /opt/ros/kinetic/setup.bash

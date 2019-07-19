@@ -65,6 +65,23 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
+""" LSP
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+let g:LanguageClient_serverCommands = {
+      \  'go': ['gopls'],
+      \ }
+    "\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    "\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    "\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    "\ 'python': ['/usr/local/bin/pyls'],
+    "\ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    "\ }
+" (Optional) Multi-entry selection UI.
+Plug 'junegunn/fzf'
+
 """c++"""
 Plug 'zchee/deoplete-clang'
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
