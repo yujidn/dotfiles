@@ -63,24 +63,27 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
 let g:deoplete#enable_at_startup = 1
 
-""" LSP
+""" LSP だいたいgoよう
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-let g:LanguageClient_serverCommands = {
-      \  'go': ['gopls'],
-      \ }
-    "\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    "\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    "\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    "\ 'python': ['/usr/local/bin/pyls'],
-    "\ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    "\ }
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
+
+let g:LanguageClient_serverCommands = {
+      \  'go': [$GOPATH.'/bin/gopls','-format-tool','gofmt','-lint-tool','golint'],
+      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+      \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+      \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+      \ 'python': ['/usr/local/bin/pyls'],
+      \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+      \ }
+
+set hidden
 
 """c++"""
 Plug 'zchee/deoplete-clang'
@@ -129,7 +132,9 @@ let g:EasyMotion_keys = 'asdfhjkl'
 
 """ go """
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-let g:go_metalinter_autosave = 1
+Plug 'zchee/nvim-go', { 'do': 'make'}
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 
 """ vlang """
 Plug 'ollykel/v-vim'
@@ -370,70 +375,6 @@ autocmd BufNewFile,BufRead *.cu setf cpp
 """""""""""""""""""""""""""
 " vim-clang周りの設定
 """""""""""""""""""""""""""
-" let g:neocomplete#enable_at_startup = 1
-
-" if !exists('g:neocomplete#force_omni_input_patterns')
-"   let g:neocomplete#force_omni_input_patterns = {}
-" endif
-" let g:neocomplete#force_overwrite_completefunc = 1
-" let g:neocomplete#force_omni_input_patterns.c =
-"       \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-" let g:neocomplete#force_omni_input_patterns.cpp =
-"       \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-" 
-" " }}}
-" "
-" " 'justmao945/vim-clang' {{{
-" 
-" " disable auto completion for vim-clang
-" let g:clang_auto = 0
-" " default 'longest' can not work with neocomplete
-" let g:clang_c_completeopt   = 'menuone'
-" let g:clang_cpp_completeopt = 'menuone'
-" 
-" function! s:get_latest_clang(search_path)
-"     let l:filelist = split(globpath(a:search_path, 'clang-*'), '\n')
-"     let l:clang_exec_list = []
-"     for l:file in l:filelist
-"         if l:file =~ '^.*clang-\d\.\d$'
-"             call add(l:clang_exec_list, l:file)
-"         endif
-"     endfor
-"     if len(l:clang_exec_list)
-"         return reverse(l:clang_exec_list)[0]
-"     else
-"         return 'clang'
-"     endif
-" endfunction
-" 
-" function! s:get_latest_clang_format(search_path)
-"     let l:filelist = split(globpath(a:search_path, 'clang-format-*'), '\n')
-"     let l:clang_exec_list = []
-"     for l:file in l:filelist
-"         if l:file =~ '^.*clang-format-\d\.\d$'
-"             call add(l:clang_exec_list, l:file)
-"         endif
-"     endfor
-"     if len(l:clang_exec_list)
-"         return reverse(l:clang_exec_list)[0]
-"     else
-"         return 'clang-format'
-"     endif
-" endfunction
-" 
-" let g:clang_exec = s:get_latest_clang('/usr/bin')
-" let g:clang_format_exec = s:get_latest_clang_format('/usr/bin')
-
-" if !exists('g:neocomplete#force_omni_input_patterns')
-"         let g:neocomplete#force_omni_input_patterns = {}
-" endif
-" let g:neocomplete#force_overwrite_completefunc = 1
-" let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-" let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"""}}}
-
-" 'justmao945/vim-clang' {{{
-
 " disable auto completion for vim-clanG
 let g:clang_auto = 0
 let g:clang_complete_auto = 0
@@ -501,6 +442,8 @@ autocmd BufWrite *.{hpp} :CPPCodeCleanup
 autocmd BufWrite *.{c} :CPPCodeCleanup
 autocmd BufWrite *.{h} :CPPCodeCleanup
 
+
+""" lspの設定
 """"""""""""""""""""""""""""""
 " filetypeの自動検出(最後の方に書いた方がいいらしい)
 """"""""""""""""""""""""""""""
