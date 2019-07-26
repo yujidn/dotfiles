@@ -131,9 +131,10 @@ let g:EasyMotion_use_migemo = 1
 let g:EasyMotion_keys = 'asdfhjkl'
 
 """ go """
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'zchee/nvim-go', { 'do': 'make'}
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 
 """ vlang """
@@ -442,6 +443,13 @@ autocmd BufWrite *.{hpp} :CPPCodeCleanup
 autocmd BufWrite *.{c} :CPPCodeCleanup
 autocmd BufWrite *.{h} :CPPCodeCleanup
 
+"""""""""""""""""""""""""""""
+" go用の設定
+"""""""""""""""""""""""""""""
+" goはハードタブを使うのがマナー
+autocmd FileType go setlocal noexpandtab
+autocmd FileType go setlocal tabstop=2
+autocmd FileType go setlocal shiftwidth=2
 
 """ lspの設定
 """"""""""""""""""""""""""""""
