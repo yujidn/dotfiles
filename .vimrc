@@ -131,7 +131,8 @@ let g:EasyMotion_use_migemo = 1
 let g:EasyMotion_keys = 'asdfhjkl'
 
 """ go """
-Plug 'zchee/nvim-go', { 'do': 'make'}
+" Plug 'zchee/nvim-go', { 'do': 'make'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']

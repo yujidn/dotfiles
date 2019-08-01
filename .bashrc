@@ -149,10 +149,10 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/usr/local/android-studio/bin"
 
 # go install
-export GOROOT=$HOME/go
-export GOPATH=$HOME/gopath
-export PATH=$PATH:$GOROOT/bin
-
-source /opt/ros/kinetic/setup.bash
+# source /opt/ros/kinetic/setup.bash
 
 export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python3.5/site-packages"
+
+# mac
+export PATH=$PATH:~/bin
+
