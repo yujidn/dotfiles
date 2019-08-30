@@ -248,6 +248,9 @@ set synmaxcol=200
 " nvim では使用できない
 " set clipboard=unnamed,autoselect
 
+" ビープ音を消す
+set visualbell t_vb=
+
 """"""""""""""""""""""""""""""
 """ map関連
 " shift-hで先頭に移動
