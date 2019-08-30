@@ -48,9 +48,9 @@ let g:auto_save = 1
 
 """python"""
 " pythonの補間プラグイン
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 " pythonのスタイルチェック
-Plug 'andviro/flake8-vim'
+Plug 'nvie/vim-flake8'
 " pythonのインデント違反をなくす奴
 Plug 'hynek/vim-python-pep8-indent'
 
@@ -75,13 +75,29 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'junegunn/fzf'
 
 let g:LanguageClient_serverCommands = {
-      \  'go': [$GOPATH.'/bin/gopls','-format-tool','gofmt','-lint-tool','golint'],
+      \ 'go': [$GOPATH.'/bin/gopls','-format-tool','gofmt','-lint-tool','golint'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
       \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
       \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
       \ 'python': ['/usr/local/bin/pyls'],
       \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
       \ }
+
+if executable('gopls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'gopls',
+      \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+      \ 'whitelist': ['go'],
+      \ })
+endif
+
+if executable('pyls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'pyls',
+      \ 'cmd': {server_info->['pyls']},
+      \ 'whitelist': ['python'],
+      \ })
+endif
 
 set hidden
 
