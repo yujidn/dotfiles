@@ -103,8 +103,8 @@ set hidden
 
 """c++"""
 Plug 'zchee/deoplete-clang'
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm@6/lib/libclang.dylib'
+let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm@6/include/clang'
 
 Plug 'Shougo/vimproc.vim',{
             \ 'build' : {
@@ -454,7 +454,8 @@ function! CPPCodeCleanup()
   " echo "Cleanup cpp code"
   let l:lines="all"
   let g:clang_format_fallback_style = 'Google'
-  :pyf /usr/share/vim/addons/syntax/clang-format.py
+  :pyf /usr/local/opt/clang-format/share/clang/clang-format.py
+
 endfunction
 command! CPPCodeCleanup call CPPCodeCleanup()
 

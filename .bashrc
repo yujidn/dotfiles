@@ -156,3 +156,5 @@ export PYTHONPATH="$PYTHONPATH:/usr/local/lib/python3.5/site-packages"
 # mac
 export PATH=$PATH:~/bin
 
+# mac @llvm
+export PATH="/usr/local/opt/llvm@6/bin:$PATH

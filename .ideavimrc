@@ -63,3 +63,9 @@ noremap "+p "*p
 noremap "+P "*P
 noremap <C-S-c> "*y
 noremap <C-S-v> "*P])
+
+
+let mapleader = " "
+
+noremap <leader>s :action KJumpAction
+
