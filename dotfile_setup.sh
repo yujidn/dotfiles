@@ -1,15 +1,17 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
 
-ln -s ~/dotfile/.bashrc ~/.bashrc
+DOTFILES="${HOME}/dotfiles"
 
+ln -sfn "${DOTFILES}/.bashrc" "${HOME}/.bashrc"
 
 ## vim setup
-ln -s ~/dotfile/.vimrc ~/.vimrc
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+ln -sfn "${DOTFILES}/.vimrc" "${HOME}/.vimrc"
+curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ## nvim setup
-mkdir ~/.config/nvim
-ln -s ~/dotfile/.vimrc ~/.config/nvim/init.vim
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+mkdir -p "${HOME}/.config/nvim"
+ln -sfn "${DOTFILES}/.vimrc" "${HOME}/.config/nvim/init.vim"
+curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
