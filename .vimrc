@@ -63,7 +63,10 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
+Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/echodoc.vim'
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'popup'
 let g:deoplete#enable_at_startup = 1
 
 """ LSP だいたいgoよう
@@ -75,6 +78,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'junegunn/fzf'
 
 let g:LanguageClient_serverCommands = {
+      \ 'c': ['clangd', '-compile-commands-dir=' . getcwd()],
+      \ 'cpp': ['clangd', '-compile-commands-dir=' . getcwd()],
       \ 'go': [$GOPATH.'/bin/gopls','-format-tool','gofmt','-lint-tool','golint'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
       \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
@@ -115,7 +120,6 @@ Plug 'Shougo/vimproc.vim',{
             \ },
             \ }
 Plug 'justmao945/vim-clang'
-Plug 'Shougo/neoinclude.vim'
 
 
 """markdown"""

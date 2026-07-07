@@ -67,5 +67,5 @@ noremap <C-S-v> "*P])
 
 let mapleader = " "
 
-noremap <leader>s :action KJumpAction
+noremap <leader>s :action KJumpAction<cr>
 
