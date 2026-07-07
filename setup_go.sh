@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
 
-go get github.com/stamblerre/gocode
-go get golang.org/x/tools/gopls
-
-
+# Go 1.17+ では `go get` によるバイナリインストールは廃止されたため `go install` を使う
+go install golang.org/x/tools/gopls@latest

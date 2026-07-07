@@ -63,7 +63,10 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
+Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/echodoc.vim'
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'popup'
 let g:deoplete#enable_at_startup = 1
 
 """ LSP だいたいgoよう
@@ -75,6 +78,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'junegunn/fzf'
 
 let g:LanguageClient_serverCommands = {
+      \ 'c': ['clangd', '-compile-commands-dir=' . getcwd()],
+      \ 'cpp': ['clangd', '-compile-commands-dir=' . getcwd()],
       \ 'go': [$GOPATH.'/bin/gopls','-format-tool','gofmt','-lint-tool','golint'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
       \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
@@ -103,8 +108,8 @@ set hidden
 
 """c++"""
 Plug 'zchee/deoplete-clang'
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm@6/lib/libclang.dylib'
+let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm@6/include/clang'
 
 Plug 'Shougo/vimproc.vim',{
             \ 'build' : {
@@ -115,7 +120,6 @@ Plug 'Shougo/vimproc.vim',{
             \ },
             \ }
 Plug 'justmao945/vim-clang'
-Plug 'Shougo/neoinclude.vim'
 
 
 """markdown"""
@@ -454,7 +458,8 @@ function! CPPCodeCleanup()
   " echo "Cleanup cpp code"
   let l:lines="all"
   let g:clang_format_fallback_style = 'Google'
-  :pyf /usr/share/vim/addons/syntax/clang-format.py
+  :pyf /usr/local/opt/clang-format/share/clang/clang-format.py
+
 endfunction
 command! CPPCodeCleanup call CPPCodeCleanup()
 
