@@ -1,3 +1,0 @@
-export vi_cv_path_python3=~/.pythonz/pythons/CPython-3.6.3/bin/python3.6
-./configure --prefix=/usr/local --with-features=huge --enable-multibyte --enable-rubyinterp --enable-luainterp --enable-cscope --enable-fail-if-missing --with-ruby-command=/usr/bin/ruby --enable-pythoninterp --enable-python3interp --enable-rubyinterp --enable-fail-if-missing
-

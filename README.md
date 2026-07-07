@@ -1,23 +1,28 @@
 # これは何？
 
-開発環境のvimrcやbashrcなどを置いたリポジトリです。 
+開発環境の vimrc や bashrc などを置いたリポジトリです。 
 自分用説明書も兼ねています。 
 
 # 使い方
 
 ホームディレクトリで実行する場合
 ```
-$ git clone https://github.com/yujipyaaaaaaaaaaaaaaaaaaaaaaa/dotfiles
-$ ln -s ~/.bashrc ~/dotfiles/.bashrc
-$ ln -s ~/.vimrc ~/dotfiles/.vimrc
+$ git clone https://github.com/yujidn/dotfiles
+$ ./dotfiles/dotfile_setup.sh
 ```
-lnのリンク先とファイル先の順番逆かも(誤差だよ誤差
+手動でリンクを張る場合 (`ln -s <実体> <リンク>` の順)
+```
+$ ln -s ~/dotfiles/.bashrc ~/.bashrc
+$ ln -s ~/dotfiles/.vimrc ~/.vimrc
+```
+マシン固有・秘密情報を含む bash 設定は `~/.bashrc.local` (git 管理外) に書く。
+存在すれば .bashrc の末尾で自動的に source される。
 
 # vimのショートカット覚書
 
 
 
-# mtuxのコマンド覚書
+# tmuxのコマンド覚書
 
 んなもんググれって感じ
 
