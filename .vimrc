@@ -80,37 +80,11 @@ Plug 'junegunn/fzf'
 let g:LanguageClient_serverCommands = {
       \ 'c': ['clangd', '-compile-commands-dir=' . getcwd()],
       \ 'cpp': ['clangd', '-compile-commands-dir=' . getcwd()],
-      \ 'go': [$GOPATH.'/bin/gopls','-format-tool','gofmt','-lint-tool','golint'],
-      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-      \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-      \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+      \ 'go': [expand('~/go/bin/gopls')],
       \ 'python': ['/usr/local/bin/pyls'],
-      \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
       \ }
 
-if executable('gopls')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'gopls',
-      \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-      \ 'whitelist': ['go'],
-      \ })
-endif
-
-if executable('pyls')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'pyls',
-      \ 'cmd': {server_info->['pyls']},
-      \ 'whitelist': ['python'],
-      \ })
-endif
-
-set hidden
-
 """c++"""
-Plug 'zchee/deoplete-clang'
-let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm@6/lib/libclang.dylib'
-let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm@6/include/clang'
-
 Plug 'Shougo/vimproc.vim',{
             \ 'build' : {
             \ 'windows' : 'make -f make_mingw32.mak',
@@ -137,7 +111,6 @@ Plug 'thinca/vim-quickrun'
 
 """ review """
 Plug 'tokorom/vim-review'
-let g:vim_review#include_filetypes = ['c++']
 let g:vim_review#include_filetypes = ['cpp']
 
 
@@ -151,12 +124,7 @@ let g:EasyMotion_use_migemo = 1
 let g:EasyMotion_keys = 'asdfhjkl'
 
 """ go """
-" Plug 'zchee/nvim-go', { 'do': 'make'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 
 """ vlang """
 Plug 'ollykel/v-vim'
@@ -175,8 +143,6 @@ call plug#end()
 """"""""""""""""""""""""""""
 " 各種オプションの設定
 """"""""""""""""""""""""""""""
-" タグファイルの指定(でもタグジャンプは使ったことがない)
-set tags=~/.tags
 " スワップファイルは使わない(ときどき面倒な警告が出るだけで役に立ったことがない)
 set noswapfile
 " undoファイルは作成しない
@@ -240,10 +206,7 @@ syntax on
 colorscheme desert
 " 行番号の色
 highlight LineNr ctermfg=darkyellow
-" 勝手に改行するのを防ぐ
-" set textwidth=0
-set formatoptions=q
-" textwidthでフォーマットさせたくない
+" 勝手に改行するのを防ぐ (textwidthでフォーマットさせたくない)
 set formatoptions=q
 " クラッシュ防止（http://superuser.com/questions/810622/vim-crashes-freezes-on-specific-files-mac-osx-mavericks）
 set synmaxcol=200
@@ -387,13 +350,6 @@ endif
 " imap ( ()<LEFT>
 """""""""""""""""""""""""""""
 
-" jedivim用設定
-let g:jedi#auto_initialization = 1
-let g:jedi#rename_command = "<leader>R"
-let g:jedi#popup_on_dot = 1
-autocmd FileType python let b:did_ftplugin = 1
-
-
 " cudaのファイルをc++にする
 autocmd BufNewFile,BufRead *.cu setf cpp
 
@@ -410,44 +366,10 @@ let g:clang_use_library = 1
 let g:clang_c_completeopt   = 'menuone'
 let g:clang_cpp_completeopt = 'menuone'
 
-if executable('clang-6.0')
-    let g:clang_exec = 'clang-6.0'
-elseif executable('clang-3.9')
-    let g:clang_exec = 'clang-3.9'
-elseif executable('clang-3.8')
-    let g:clang_exec = 'clang-3.8'
-elseif executable('clang-3.7')
-    let g:clang_exec = 'clang-3.7'
-elseif executable('clang-3.6')
-    let g:clang_exec = 'clang-3.6'
-elseif executable('clang-3.5')
-    let g:clang_exec = 'clang-3.5'
-elseif executable('clang-3.4')
-    let g:clang_exec = 'clang-3.4'
-else
-    let g:clang_exec = 'clang'
-endif
+let g:clang_exec = 'clang'
+let g:clang_format_exec = 'clang-format'
 
-if executable('clang-format-6.0')
-    let g:clang_format_exec = 'clang-format-6.0'
-elseif executable('clang-format-3.9')
-    let g:clang_format_exec = 'clang-format-3.9'
-elseif executable('clang-format-3.8')
-  let g:clang_format_exec = 'clang-format-3.8'
-elseif executable('clang-format-3.7')
-  let g:clang_format_exec = 'clang-format-3.7'
-elseif executable('clang-format-3.6')
-    let g:clang_format_exec = 'clang-format-3.6'
-elseif executable('clang-format-3.5')
-    let g:clang_format_exec = 'clang-format-3.5'
-elseif executable('clang-format-3.4')
-    let g:clang_format_exec = 'clang-format-3.4'
-else
-    let g:clang_format_exec = 'clang-format'
-endif
-
-let g:clang_c_options = '-std=c14'
-"let g:clang_cpp_options = '-std=c++14 -stdlib=libc++'
+let g:clang_c_options = '-std=c11'
 let g:clang_cpp_options = '-std=c++14'
 
 
